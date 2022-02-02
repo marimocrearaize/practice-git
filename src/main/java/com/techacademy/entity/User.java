@@ -10,6 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name="user")
@@ -28,6 +33,8 @@ public class User implements Serializable{
 
         /** 名前 */
         @Column(length=20, nullable=false)
+        @NotEmpty
+        @Length(max=20)
         private String name;
 
         /** 性別 */
@@ -36,10 +43,13 @@ public class User implements Serializable{
         private Gender gender;
 
         /** 年齢 */
+        @Min(value=0)
         private Integer age;
 
         /** メールアドレス */
         @Column(length=50)
+        @Email
+        @Length(max=50)
         private String email;
 
         public Integer getId() {

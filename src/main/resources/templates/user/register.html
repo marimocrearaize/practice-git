@@ -9,26 +9,33 @@
         label {        display:inline-block;
                         width:8em;
                         line-height:150%; }
+        .err { color:red; }
         </style>
 </head>
 <body>
         <h1>User情報管理システム</h1>
         <h2>User登録</h2>
-        <form method="post" action="/user/register" th:action="@{/user/register}">
+        <p class="err" th:text="${errmsg}">　</p>
+        <form method="post" action="/user/register" th:action="@{/user/register}" th:object="${user}" >
                 <label for="name">名前</label>
-                <input type="text" id="name" name="name" size="20" />
+                <input type="text" id="name" name="name" size="20" th:value="*{name}" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="err"></span>
                 <br />
                 <label for="gender">性別</label>
-                <select id="gender" name="gender">
-                        <option value="" />
-                        <option th:each="gender:${T(com.techacademy.entity.User.Gender).values()}" th:value="${gender}" th:text="${gender}" />
+                <select id="gender" name="gender" th:errorclass="err">
+                        <option th:selected="${user.gender == ''}" />
+                        <option th:each="gender:${T(com.techacademy.entity.User.Gender).values()}" th:value="${gender}"
+                                         th:selected="${user.gender == gender}" th:text="${gender}" />
                 </select>
+                <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="err"></span>
                 <br />
                 <label for="age">年齢</label>
-                <input type="text" id="age" name="age" />
+                 <input type="text" id="age" name="age" th:value="*{age}" />
+                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="err"></span>
                 <br />
                 <label for="email">メールアドレス</label>
-                <input type="text" id="email" name="email" size="50" />
+                <input type="text" id="email" name="email" size="50" th:value="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="err"></span>
                 <br />
                 <br />
                 <input type="submit" name="registerRun" value="登録実行" />
