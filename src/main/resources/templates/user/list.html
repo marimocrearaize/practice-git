@@ -18,7 +18,12 @@
         </style>
         <script>
         function clickBtnChange(){
-                const idck = document.frm.idck;
+                var idck;
+                if (typeof document.frm.idck.length === 'undefined'){
+                        idck = [{'checked': document.frm.idck.checked}];
+                } else {
+                        idck = document.frm.idck;
+                }
                 var cnt = 0;
                 for (i=0; i<idck.length; i++){
                         if (idck[i].checked){
@@ -35,6 +40,26 @@
                         return false;        // 処理中断
                 }
         }
+        function clickBtnDelete(){
+                var idck;
+                if (typeof document.frm.idck.length === 'undefined'){
+                        idck = [{'checked': document.frm.idck.checked}];
+                } else {
+                        idck = document.frm.idck;
+                }
+                var cnt = 0;
+                for (i=0; i<idck.length; i++){
+                        if (idck[i].checked){
+                                cnt++;
+                        }
+                }
+                if (cnt == 0){
+                        alert('Userが選択されていません。');
+                        return false;        // 処理中断
+                } else {
+                        return true;        // 処理実行
+                }
+        }
         </script>
 </head>
 <body>
@@ -42,6 +67,7 @@
         <h2>User一覧(全件)</h2>
         <form name="frm" method="post" action="/user/list" th:action="@{/user/list}">
         <input type="submit" name="toChange" value="(選択)したUserを変更" onclick="return clickBtnChange()" />
+        <input type="submit" name="deleteRun" value="(選択)したUserを一括削除" onclick="return clickBtnDelete()" />
         <br />
         <br />
         <table>

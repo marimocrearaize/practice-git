@@ -1,6 +1,7 @@
 package com.techacademy.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class UserService {
         @Transactional(readOnly=false)
         public User saveUser(User user) {
                 return userRepository.save(user);
+        }
+
+        @Transactional(readOnly=false)
+        public void deleteUser(Set<Integer> id) {
+                userRepository.deleteInBatch(userRepository.findAllById(id));
         }
 }
