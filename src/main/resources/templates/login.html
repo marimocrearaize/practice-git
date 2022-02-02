@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <title>Tutorial of Develop</title>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+        <style>
+        h1 { font-size:18pt; }
+        h2 { font-size:15pt; }
+        .err { color:red; }
+        </style>
+</head>
+<body>
+        <h1>User情報管理システム</h1>
+        <h2>ログイン</h2>
+        <p class="err" th:if="${param.error}">ユーザ名かパスワードが一致しませんでした。</p>
+        <form method="post" action="/login" th:action="@{/login}">
+        <table>
+                <tr>
+                        <td><label for="loginuser">ユーザ名：</label></td>
+                        <td><input type="text" id="loginuser" name="loginuser" value="ktaro" /></td>
+                </tr>
+                <tr>
+                        <td><label for="password">パスワード：</label></td>
+                        <td><input type="password" id="password" name="password" value="ktaro" /></td>
+                </tr>
+                <tr>
+                        <td>&nbsp;</td>
+                        <td><input type="submit" name="loginRun" value="ログイン" /></td>
+                </tr>
+        </table>
+        </form>
+</body>
+</html>
