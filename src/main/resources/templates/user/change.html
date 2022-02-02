@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <title>Tutorial of Develop</title>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+        <style>
+        h1 { font-size:18pt; }
+        h2 { font-size:15pt; }
+        label {        display:inline-block;
+                        width:8em;
+                        line-height:150%; }
+        </style>
+</head>
+<body>
+        <h1>User情報管理システム</h1>
+        <h2>User変更</h2>
+        <form method="post" action="/user/change" th:action="@{/user/change}" th:object="${user}">
+                <label for="id">ID</label>
+                <input type="hidden" id="id" name="id" th:value="*{id}" th:text="*{id}" />
+                <br />
+                <label for="name">名前</label>
+                <input type="text" id="name" name="name" size="20" th:value="*{name}" />
+                <br />
+                <label for="gender">性別</label>
+                <select id="gender" name="gender">
+                        <option th:selected="${user.gender == ''}" />
+                        <option th:each="gender:${T(com.techacademy.entity.User.Gender).values()}" th:value="${gender}"
+                                         th:selected="${user.gender == gender}" th:text="${gender}" />
+                </select>
+                <br />
+                <label for="age">年齢</label>
+                <input type="text" id="age" name="age" th:value="*{age}" />
+                <br />
+                <label for="email">メールアドレス</label>
+                <input type="text" id="email" name="email" size="20" th:value="*{email}" />
+                <br />
+                <br />
+                <input type="submit" name="changeRun" value="変更実行" />
+                <input type="submit" name="returnList" value="戻る" />
+        </form>
+</body>
+</html>

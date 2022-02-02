@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+        <title>Tutorial of Develop</title>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+        <style>
+        h1 { font-size:18pt; }
+        h2 { font-size:15pt; }
+        table {        border-collapse: collapse; }
+        th,td{
+                border:solid 1px black;
+                padding:10px 20px;
+        }
+        .center {
+                padding:0px 0px;
+                text-align:center;
+        }
+        </style>
+        <script>
+        function clickBtnChange(){
+                const idck = document.frm.idck;
+                var cnt = 0;
+                for (i=0; i<idck.length; i++){
+                        if (idck[i].checked){
+                                cnt++;
+                        }
+                }
+                if (cnt == 0){
+                        alert('Userが選択されていません。');
+                        return false;        // 処理中断
+                } else if(cnt == 1){
+                        return true;        // 処理実行
+                } else {
+                        alert('Userが2件以上選択されています。');
+                        return false;        // 処理中断
+                }
+        }
+        </script>
+</head>
+<body>
+        <h1>User情報管理システム</h1>
+        <h2>User一覧(全件)</h2>
+        <form name="frm" method="post" action="/user/list" th:action="@{/user/list}">
+        <input type="submit" name="toChange" value="(選択)したUserを変更" onclick="return clickBtnChange()" />
+        <br />
+        <br />
+        <table>
+                <tr>
+                        <th class="center">(選択)</th>
+                        <th>ID</th>
+                        <th>名前</th>
+                        <th>性別</th>
+                        <th>年齢</th>
+                        <th>メールアドレス</th>
+                </tr>
+                <tr th:each="user : ${userlist}">
+                        <td class="center"><input type="checkbox" name="idck" th:value="${user.id}" /></td>
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.gender}"></td>
+                        <td th:text="${user.age}"></td>
+                        <td th:text="${user.email}"></td>
+                </tr>
+        </table>
+        </form>
+</body>
+</html>
