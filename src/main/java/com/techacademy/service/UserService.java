@@ -18,4 +18,9 @@ public class UserService {
         public List<User> getUserList() {
                 return userRepository.findAll();
         }
+
+        @Transactional(readOnly=false)
+        public User saveUser(User user) {
+                return userRepository.save(user);
+        }
 }
