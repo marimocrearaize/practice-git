@@ -9,17 +9,21 @@
         label {        display:inline-block;
                         width:8em;
                         line-height:150%; }
+        .err { color:red; }
         </style>
 </head>
 <body>
         <h1>User情報管理システム</h1>
         <h2>User変更</h2>
+        <!-- /*課題③ エラーメッセージを表示*/ -->
+        <p class="err" th:text="${errmsg}">　</p>
         <form method="post" action="/user/change" th:action="@{/user/change}" th:object="${user}">
                 <label for="id">ID</label>
                 <input type="hidden" id="id" name="id" th:value="*{id}" th:text="*{id}" />
                 <br />
                 <label for="name">名前</label>
                 <input type="text" id="name" name="name" size="20" th:value="*{name}" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="err"></span>
                 <br />
                 <label for="gender">性別</label>
                 <select id="gender" name="gender">
@@ -27,12 +31,15 @@
                         <option th:each="gender:${T(com.techacademy.entity.User.Gender).values()}" th:value="${gender}"
                                          th:selected="${user.gender == gender}" th:text="${gender}" />
                 </select>
+                <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" th:errorclass="err"></span>
                 <br />
                 <label for="age">年齢</label>
                 <input type="text" id="age" name="age" th:value="*{age}" />
+                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="err"></span>
                 <br />
                 <label for="email">メールアドレス</label>
                 <input type="text" id="email" name="email" size="20" th:value="*{email}" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="err"></span>
                 <br />
                 <br />
                 <input type="submit" name="changeRun" value="変更実行" />
